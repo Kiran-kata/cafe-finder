@@ -14,6 +14,7 @@ Cafe Finder helps users search nearby cafés, filter/sort results, save visit pl
 - Local setup
 - Screenshots / demo
 - Usage guide
+- Deployment (GitHub Pages)
 - Permissions and notifications
 - Data storage
 - Limitations
@@ -175,6 +176,28 @@ http://localhost:5500
    - Want to visit for proximity alerts and directions
 4. Configure alert distance (up to 10 miles).
 5. When near a saved café, open directions from the notification/alert.
+
+On first open, users also see a small onboarding card with the core steps.
+
+## Deployment (GitHub Pages)
+
+This repo includes an automated GitHub Pages workflow:
+
+- Workflow file: `.github/workflows/deploy-pages.yml`
+- Trigger: push to `main`
+
+To enable pages:
+
+1. Open your repository on GitHub.
+2. Go to **Settings → Pages**.
+3. Set **Source** to **GitHub Actions**.
+4. Push to `main` (or re-run the workflow in the Actions tab).
+
+After deployment, your app will be available at:
+
+`https://kiran-kata.github.io/cafe-finder/`
+
+If your API key is restricted by referrer, add your Pages URL to allowed origins.
 
 ## Permissions and notifications
 

@@ -17,6 +17,8 @@ const alertDistanceNode = document.getElementById("alert-distance");
 const recentSearchesNode = document.getElementById("recent-searches");
 const clearRecentButton = document.getElementById("clear-recent");
 const clearSavedButton = document.getElementById("clear-saved");
+const onboardingCard = document.getElementById("onboarding-card");
+const dismissOnboardingButton = document.getElementById("dismiss-onboarding");
 
 const VISITED_STORAGE_KEY = "cafe_finder_visited";
 const BOOKMARK_STORAGE_KEY = "cafe_finder_bookmarked";
@@ -24,6 +26,7 @@ const PROXIMITY_RESET_DISTANCE_METERS = 700;
 const ALERT_DISTANCE_STORAGE_KEY = "cafe_finder_alert_distance";
 const DISTANCE_UNIT_STORAGE_KEY = "cafe_finder_distance_unit";
 const RECENT_SEARCHES_STORAGE_KEY = "cafe_finder_recent_searches";
+const ONBOARDING_DISMISSED_KEY = "cafe_finder_onboarding_dismissed";
 const MAX_RECENT_SEARCHES = 8;
 const GOOGLE_REVIEW_PREVIEW_COUNT = 2;
 const ALERT_DISTANCE_OPTIONS = {
@@ -441,6 +444,17 @@ function loadRecentSearches() {
 
 function saveRecentSearches() {
   window.localStorage.setItem(RECENT_SEARCHES_STORAGE_KEY, JSON.stringify(recentSearches));
+}
+
+function shouldShowOnboarding() {
+  return window.localStorage.getItem(ONBOARDING_DISMISSED_KEY) !== "true";
+}
+
+function dismissOnboarding() {
+  window.localStorage.setItem(ONBOARDING_DISMISSED_KEY, "true");
+  if (onboardingCard) {
+    onboardingCard.classList.add("hidden");
+  }
 }
 
 function renderRecentSearches() {
@@ -1182,6 +1196,14 @@ function useMyLocation() {
 }
 
 async function init() {
+  if (onboardingCard) {
+    if (shouldShowOnboarding()) {
+      onboardingCard.classList.remove("hidden");
+    } else {
+      onboardingCard.classList.add("hidden");
+    }
+  }
+
   renderVisitedCafes();
   renderBookmarkedCafes();
   renderRecentSearches();
@@ -1239,6 +1261,7 @@ async function init() {
       notifiedNearbyCafeKeys.clear();
       runImmediateProximityCheck();
     });
+    dismissOnboardingButton.addEventListener("click", dismissOnboarding);
     clearRecentButton.addEventListener("click", clearRecentSearches);
     clearSavedButton.addEventListener("click", clearBookmarkedCafes);
     searchInput.addEventListener("keydown", (event) => {
