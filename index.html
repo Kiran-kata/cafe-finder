@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cafe Finder</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="top-bar">
+      <h1>Cafe Finder</h1>
+      <p>Discover cafes near any location.</p>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <label for="search-input" class="label">Search area</label>
+        <div class="search-row">
+          <input id="search-input" type="text" placeholder="Enter city, address, or place" />
+          <button id="search-btn" type="button">Find Cafes</button>
+        </div>
+
+        <div class="actions">
+          <button id="locate-btn" type="button" class="secondary">Use My Location</button>
+        </div>
+
+        <div class="filters">
+          <label for="rating-filter" class="label">Minimum rating</label>
+          <select id="rating-filter" aria-label="Minimum rating">
+            <option value="0">Any rating</option>
+            <option value="3">3.0+</option>
+            <option value="3.5">3.5+</option>
+            <option value="4">4.0+</option>
+            <option value="4.5">4.5+</option>
+          </select>
+
+          <label for="sort-filter" class="label filter-label">Sort by</label>
+          <select id="sort-filter" aria-label="Sort cafes">
+            <option value="nearest">Nearest</option>
+            <option value="rating">Highest rated</option>
+          </select>
+
+          <label for="distance-unit" class="label filter-label">Distance unit</label>
+          <select id="distance-unit" aria-label="Distance unit">
+            <option value="km">Kilometers (km)</option>
+            <option value="miles">Miles (mi)</option>
+          </select>
+
+          <label class="checkbox-row">
+            <input id="open-now-filter" type="checkbox" />
+            <span>Open now</span>
+          </label>
+        </div>
+
+        <p id="status" class="status">Loading map…</p>
+
+        <section class="recent-section" aria-live="polite">
+          <div class="section-head">
+            <h2 class="section-title">Recent searches</h2>
+            <button id="clear-recent" type="button" class="section-action">Clear</button>
+          </div>
+          <ul id="recent-searches" class="recent-list"></ul>
+        </section>
+
+        <ul id="results" class="results" aria-live="polite"></ul>
+
+        <section class="visited-section" aria-live="polite">
+          <h2 class="section-title">Past visited cafes</h2>
+          <ul id="visited-results" class="visited-list"></ul>
+        </section>
+
+        <section class="saved-section" aria-live="polite">
+          <div class="section-head">
+            <h2 class="section-title">Cafes to visit</h2>
+            <button id="clear-saved" type="button" class="section-action">Clear</button>
+          </div>
+          <p class="section-note">Bookmark cafes and get alerted when you are near them.</p>
+          <label for="alert-distance" class="label filter-label">Alert distance</label>
+          <select id="alert-distance" aria-label="Alert distance">
+            <option value="200">200 m</option>
+            <option value="500" selected>500 m</option>
+            <option value="1000">1 km</option>
+          </select>
+          <ul id="saved-results" class="saved-list"></ul>
+        </section>
+      </section>
+
+      <section class="map-wrap">
+        <div id="map" role="application" aria-label="Cafe map"></div>
+      </section>
+    </main>
+
+    <script src="./config.js"></script>
+    <script src="./config.local.js"></script>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
